@@ -1,0 +1,3 @@
+# Tích hợp LLM qua chuẩn OpenAI-Compatible với cấu hình linh hoạt qua biến môi trường
+
+Hệ thống cần kết nối với mô hình AI để sinh báo cáo luận giải và hội thoại tương tác, hỗ trợ nhiều nhà cung cấp khác nhau (OpenRouter, DeepSeek, vLLM hoặc các bên thứ ba). Chúng tôi quyết định sử dụng giao thức chuẩn **OpenAI-Compatible** trong Nuxt server routes, cho phép tùy biến linh hoạt `AI_BASE_URL`, `AI_API_KEY` và `AI_MODEL_NAME` thông qua file `.env`. Lựa chọn này giúp hệ thống độc lập với bất kỳ nhà cung cấp độc quyền nào, dễ dàng hoán đổi mô hình hoặc tối ưu chi phí theo thời gian mà không cần sửa code.

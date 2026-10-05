@@ -1,0 +1,3 @@
+# Tri thức RAG có cấu trúc cho Luận giải Tử Vi
+
+Luận giải Tử Vi đòi hỏi độ chính xác cao theo các nguyên lý kinh điển (chính tinh, phụ tinh, vị trí miếu hãm, cách cục) mà không làm tăng độ phức tạp hay chi phí vận hành hạ tầng Vector Database. Chúng tôi quyết định sử dụng mô hình **Structured Domain RAG**: lưu trữ từ điển tri thức luận giải thành các file dữ liệu có cấu trúc (JSON/TypeScript module) theo khóa định danh của từng sao và cung vị. Khi có yêu cầu luận giải, hệ thống tự động bốc tách chính xác các đoạn luận kinh điển tương ứng nạp vào prompt ngữ cảnh của LLM, vừa đảm bảo 100% độ chính xác về giáo lý Tử Vi, vừa hạn chế tối đa mã nguồn và loại bỏ hoàn toàn chi phí bảo trì vector database.
