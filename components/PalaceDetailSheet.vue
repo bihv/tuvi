@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, nextTick, ref, watch } from 'vue'
 import { marked } from 'marked'
+import { renderAiMarkdown } from '~/utils/markdown'
 import type { NormalizedAstrolabe, NormalizedPalace } from '~/types/tuvi'
 import { getMutagenBadgeClass, getSurroundingPalaces } from '~/utils/tuvi'
 import { useTuviStore } from '~/stores/useTuviStore'
@@ -116,7 +117,7 @@ function handlePopOutToChat(promptText?: string) {
 
 function renderMessageHtml(content: string): string {
   try {
-    return marked(content)
+    return renderAiMarkdown(content)
   } catch {
     return content
   }
@@ -486,7 +487,7 @@ watch(
                       </div>
                       <div
                         v-else-if="msg.content"
-                        class="prose prose-slate dark:prose-invert max-w-none text-xs leading-relaxed"
+                        class="ai-markdown-content max-w-none text-xs leading-relaxed"
                         v-html="renderMessageHtml(msg.content)"
                       />
                       <div v-else-if="chatStream.isStreaming.value" class="flex items-center gap-1 py-1 text-slate-400">

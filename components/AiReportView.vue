@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 import { marked } from 'marked'
+import { renderAiMarkdown } from '~/utils/markdown'
 
 const props = withDefaults(
   defineProps<{
@@ -28,7 +29,7 @@ const contentContainer = ref<HTMLElement | null>(null)
 const renderedHtml = computed(() => {
   if (!props.reportMarkdown) return ''
   try {
-    return marked(props.reportMarkdown)
+    return renderAiMarkdown(props.reportMarkdown)
   } catch (e) {
     return `<p class="text-rose-500">Lỗi hiển thị nội dung: ${String(e)}</p>`
   }
@@ -165,7 +166,7 @@ watch(
 
           <!-- Rendered Markdown Body -->
           <div
-            class="prose prose-slate dark:prose-invert max-w-none text-sm leading-relaxed prose-headings:font-bold prose-headings:tracking-tight prose-h1:text-lg prose-h2:text-base prose-h3:text-sm prose-p:text-[#3A3A3C] dark:prose-p:text-[#D1D1D6] prose-li:text-[#3A3A3C] dark:prose-li:text-[#D1D1D6] prose-strong:text-[#1D1D1F] dark:prose-strong:text-white prose-blockquote:border-l-2 prose-blockquote:border-[#0071E3] prose-blockquote:bg-black/[0.02] dark:prose-blockquote:bg-white/[0.03] prose-blockquote:p-3.5 prose-blockquote:rounded-r-xl"
+            class="ai-markdown-content max-w-none"
             v-html="renderedHtml"
           />
 

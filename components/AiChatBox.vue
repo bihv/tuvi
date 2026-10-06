@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 import { marked } from 'marked'
+import { renderAiMarkdown } from '~/utils/markdown'
 import type { ChatMessage } from '~/types/tuvi'
 
 const props = withDefaults(
@@ -83,7 +84,7 @@ function sendSuggestion(suggestion: string) {
 
 function renderMessageHtml(content: string): string {
   try {
-    return marked(content)
+    return renderAiMarkdown(content)
   } catch {
     return content
   }
@@ -178,7 +179,7 @@ function renderMessageHtml(content: string): string {
             <!-- Assistant markdown -->
             <div
               v-else-if="msg.content"
-              class="prose prose-slate dark:prose-invert max-w-none text-xs sm:text-sm leading-relaxed prose-p:my-1 prose-ul:my-1 prose-li:my-0.5"
+              class="ai-markdown-content max-w-none text-xs sm:text-sm"
               v-html="renderMessageHtml(msg.content)"
             />
 
@@ -226,7 +227,7 @@ function renderMessageHtml(content: string): string {
       v-if="targetPalaceName"
       class="px-4 py-2 border-t border-blue-500/15 bg-blue-500/10 text-[#0071E3] dark:text-[#2997FF] text-xs shrink-0"
     >
-      <div class="max-w-3xl mx-auto flex items-center justify-between">
+      <div class="mx-auto flex items-center justify-between">
         <div class="flex items-center gap-1.5 font-medium">
           <UIcon name="i-heroicons-tag" class="w-3.5 h-3.5" />
           <span>Đang tập trung giải đoán: <strong>Cung {{ targetPalaceName }}</strong></span>
@@ -245,7 +246,7 @@ function renderMessageHtml(content: string): string {
 
     <!-- Input Bar (Apple Siri / Claude Style Input) -->
     <div class="px-3 py-2.5 sm:px-4 sm:py-3.5 border-t border-black/[0.06] dark:border-white/[0.08] shrink-0 bg-[#F5F5F7]/90 dark:bg-black/90 backdrop-blur-md pb-[max(0.625rem,env(safe-area-inset-bottom))]">
-      <form class="max-w-3xl mx-auto flex items-center gap-2" @submit.prevent="handleSend">
+      <form class="mx-auto flex items-center gap-2" @submit.prevent="handleSend">
         <UInput
           v-model="inputMessage"
           placeholder="Hỏi trợ lý Tử Vi điều bạn thắc mắc..."

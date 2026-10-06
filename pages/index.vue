@@ -241,7 +241,7 @@ function handleLoadSaved(astrolabe: NormalizedAstrolabe) {
       <!-- VIEW 2: BÁO CÁO LUẬN GIẢI 5 MỤC BẰNG AI -->
       <div
         v-show="activeTab === 'report'"
-        class="w-full max-w-4xl mx-auto flex-1 flex flex-col min-h-0 h-[calc(100dvh-3.5rem)] max-h-full overflow-hidden"
+        class="w-full flex-1 flex flex-col min-h-0 h-[calc(100dvh-3.5rem)] max-h-full overflow-hidden"
       >
         <!-- If report is not yet generated and not generating -->
         <div
@@ -304,28 +304,33 @@ function handleLoadSaved(astrolabe: NormalizedAstrolabe) {
           class="flex-1 h-full min-h-0 overflow-hidden"
           :report-markdown="store.currentReport"
           :is-generating="reportStream.isGenerating.value"
+          :astrolabe="store.currentAstrolabe"
           :astrolabe-name="store.currentAstrolabe.thienBan.name"
           @regenerate="() => reportStream.generateReport()"
           @switch-tab="(tab) => activeTab = tab"
+          @ask-ai="(question) => { activeTab = 'chat'; handleSendMessage(question); }"
         />
       </div>
 
       <!-- VIEW 3: TRỢ LÝ AI CHAT TỰ DO -->
       <div
         v-show="activeTab === 'chat'"
-        class="w-full max-w-3xl mx-auto flex-1 flex flex-col min-h-0 h-[calc(100dvh-3.5rem)] max-h-full overflow-hidden"
+        class="w-full max-w-[1600px] mx-auto flex-1 flex flex-col min-h-0 h-[calc(100dvh-3.5rem)] max-h-full overflow-hidden"
       >
         <AiChatBox
           class="flex-1 h-full min-h-0 overflow-hidden"
           :messages="store.currentChatMessages"
           :is-streaming="chatStream.isStreaming.value"
           :target-palace-name="store.selectedPalaceName"
+          :selected-palace="store.selectedPalace"
+          :astrolabe="store.currentAstrolabe"
           :astrolabe-name="store.currentAstrolabe.thienBan.name"
           :viewing-year="store.currentAstrolabe.thienBan.viewingYear"
           :error-message="chatStream.chatError.value"
           @send="handleSendMessage"
           @clear="handleClearChat"
           @clear-palace-focus="store.selectPalace(null)"
+          @select-palace="(name) => store.selectPalace(name)"
           @switch-tab="(tab) => activeTab = tab"
         />
       </div>

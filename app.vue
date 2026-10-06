@@ -60,7 +60,7 @@ function handleNewChart() {
 
     <!-- Header Navigation (Apple Translucent Navbar - Unified Single Header) -->
     <header class="sticky top-0 z-30 w-full apple-glass-thin border-b border-black/[0.06] dark:border-white/[0.08] transition-all duration-200">
-      <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-14 flex items-center justify-between gap-2 sm:gap-4">
+      <div class="max-w-[1600px] mx-auto px-3 sm:px-6 lg:px-8 h-14 flex items-center justify-between gap-2 sm:gap-4">
         <!-- Left: Logo & Branding / Context -->
         <div class="flex items-center gap-2 sm:gap-3 min-w-0 shrink-0">
           <NuxtLink to="/" class="flex items-center gap-2 sm:gap-2.5 group apple-press shrink-0">
@@ -208,7 +208,7 @@ function handleNewChart() {
     <!-- Main Content Container with NuxtPage -->
     <main
       :class="[
-        'flex-1 max-w-7xl w-full mx-auto',
+        'flex-1 max-w-[1600px] w-full mx-auto',
         isContainedViewActive
           ? 'px-0 py-0 flex flex-col min-h-0 overflow-hidden'
           : 'px-4 sm:px-6 lg:px-8 py-5 sm:py-7'
